@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Volunteers List</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            /* Soft gradient background */
+            background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+        }
+        h1 {
+            text-align: center;
+            margin-top: 30px;
+            color: #2d3e50;
+            letter-spacing: 2px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            background: rgba(255,255,255,0.95);
+            padding: 30px 40px;
+            border-radius: 18px;
+            box-shadow: 0 6px 24px rgba(44,62,80,0.08);
+        }
+        a {
+            color: #4a90e2;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        a:hover {
+            color: #2563a6;
+        }
+        .add-btn {
+            display: inline-block;
+            margin-bottom: 18px;
+            padding: 8px 18px;
+            background: #4a90e2;
+            color: #fff !important;
+            border-radius: 8px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        .add-btn:hover {
+            background: #2563a6;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            box-shadow: 0 2px 6px rgba(44,62,80,0.06);
+        }
+        th, td {
+            padding: 12px 10px;
+            border-bottom: 1px solid #eaeaea;
+            text-align: left;
+        }
+        th {
+            background: #f5f8fa;
+            color: #2d3e50;
+            font-size: 1.05em;
+        }
+        tr:last-child td {
+            border-bottom: none;
+        }
+        .action-link {
+            margin-right: 10px;
+            padding: 6px 12px;
+            border-radius: 6px;
+            background: #e3f0fa;
+            color: #2563a6;
+            font-weight: 500;
+            transition: background 0.2s, color 0.2s;
+        }
+        .action-link:hover {
+            background: #4a90e2;
+            color: #fff;
+        }
+        @media (max-width: 600px) {
+            .container { padding: 12px; }
+            table, th, td { font-size: 0.95em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Volunteers List</h1>
+        <a th:href="@{/addVolunteer}" class="add-btn">Add Volunteer</a>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Availability</th>
+                <th>Actions</th>
+            </tr>
+            <tr th:each="volunteer : ${volunteers}">
+                <td th:text="${volunteer.name}"></td>
+                <td th:text="${volunteer.email}"></td>
+                <td th:text="${volunteer.availability ? 'Available' : 'Not Available'}"></td>
+                <td>
+                    <a th:href="@{/showFormUpdateVolunteer/{id}(id=${volunteer.id})}" class="action-link">Edit</a>
+                    <a th:href="@{/deleteVolunteer/{id}(id=${volunteer.id})}" class="action-link">Delete</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

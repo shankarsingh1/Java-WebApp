@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add/Update Volunteer</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+        }
+        .container {
+            max-width: 400px;
+            margin: 50px auto;
+            background: rgba(255,255,255,0.97);
+            padding: 32px 28px 24px 28px;
+            border-radius: 16px;
+            box-shadow: 0 6px 24px rgba(44,62,80,0.08);
+        }
+        h1 {
+            text-align: center;
+            color: #2d3e50;
+            margin-bottom: 28px;
+            letter-spacing: 1px;
+        }
+        label {
+            display: block;
+            margin-bottom: 6px;
+            color: #2563a6;
+            font-weight: 500;
+        }
+        input[type="text"], input[type="email"] {
+            width: 100%;
+            padding: 8px 10px;
+            margin-bottom: 18px;
+            border: 1px solid #cfd8dc;
+            border-radius: 6px;
+            font-size: 1em;
+            background: #f5f8fa;
+            transition: border 0.2s;
+        }
+        input[type="text"]:focus, input[type="email"]:focus {
+            border: 1.5px solid #4a90e2;
+            outline: none;
+        }
+        .checkbox-row {
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+        }
+        .checkbox-row label {
+            margin: 0 0 0 8px;
+            font-weight: normal;
+            color: #2d3e50;
+        }
+        button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background: #4a90e2;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.08em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        button[type="submit"]:hover {
+            background: #2563a6;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 16px;
+            color: #4a90e2;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .back-link:hover {
+            color: #2563a6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 th:text="${volunteer.id == 0 ? 'Add Volunteer' : 'Update Volunteer'}"></h1>
+        <form th:action="@{/saveVolunteer}" th:object="${volunteer}" method="post">
+            <input type="hidden" th:field="*{id}" />
+            <label for="name">Name:</label>
+            <input type="text" id="name" th:field="*{name}" required/>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" th:field="*{email}" required/>
+
+            <div class="checkbox-row">
+                <input type="checkbox" id="availability" th:field="*{availability}"/>
+                <label for="availability">Available</label>
+            </div>
+
+            <button type="submit">Save</button>
+        </form>
+        <a th:href="@{/volunteers}" class="back-link">Back to List</a>
+    </div>
+</body>
+</html>
